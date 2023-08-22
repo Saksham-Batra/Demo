@@ -1,13 +1,16 @@
 from flask import Flask, request, jsonify
 from models import db, User
 from datetime import datetime
-import uvicorn
 
 app = Flask(__name__)
 
 # Configure the database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthday_app.db'
 db.init_app(app)
+
+@app.route('/', methods=['GET'])
+def home():
+    return "Welcome to the Birthday Checking Application!"
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
@@ -39,4 +42,4 @@ def check_birthday():
         return jsonify({"message": "No birthdays today"})
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    app.run(debug=True)
