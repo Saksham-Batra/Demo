@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from models import db, User
 from datetime import datetime
+import uvicorn
 
 app = Flask(__name__)
 
@@ -38,4 +39,4 @@ def check_birthday():
         return jsonify({"message": "No birthdays today"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    uvicorn.run(app, host='0.0.0.0', port=8000)
